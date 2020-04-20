@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liuge.wxserv.dao.RealTimeMonitorDao">
+    <resultMap id="RealTimeMonitorMap" type="com.liuge.wxserv.entity.CwTempCurr">
+        <id column="cur_id" property="id"/>
+        <result column="cur_id" property="id"/>
+        <result column="val" property="curVal"/>
+        <result column="chx" property="chx"/>
+        <result column="state" property="state"/>
+        <collection property="cwChannel" column="customerid" javaType="list" ofType="com.liuge.wxserv.entity.CwChannel">
+            <result column="channel_id" property="id"/>
+            <result column="descript" property="descript"/>
+            <result column="sortint" property="sortint"/>
+            <result column="devname" property="devname"/>
+            <result column="devaddr" property="devaddr"/>
+            <result column="highvalue" property="highvalue"/>
+            <result column="lowvalue" property="lowvalue"/>
+        </collection>
+    </resultMap>
+    <select id="queryRealTimeMonitorByCustomerId" parameterType="Integer" resultMap="RealTimeMonitorMap">
+        SELECT a.id as cur_id, a.chx, b.descript, b.sortint,b.devname,b.devaddr, b.highvalue,
+        b.lowvalue, a.val, a.state, a.customerid as customer_id, b.id as channel_id
+        FROM
+        cw_tempcurr a inner join cw_channel b on b.customerid=a.customerid
+        WHERE
+        a.customerid=#{customerid}
+    </select>
+
+</mapper>
