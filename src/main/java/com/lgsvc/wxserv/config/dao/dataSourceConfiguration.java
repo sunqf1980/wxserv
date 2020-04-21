@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.beans.PropertyVetoException;
 
-@MapperScan("com.liuge.wxserv.dao")
+@MapperScan("com.lgsvc.wxserv.dao")
 @Configuration
 public class dataSourceConfiguration {
     @Value("${jdbc.driver}")
