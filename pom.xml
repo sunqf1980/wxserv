@@ -11,8 +11,8 @@
     <groupId>com.liuge</groupId>
     <artifactId>wxserv</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo</name>
-    <description>com.liuge.wxserv</description>
+    <name>lgsvc</name>
+    <description>com.lgsvc.wxserv</description>
 
     <properties>
         <java.version>1.8</java.version>
