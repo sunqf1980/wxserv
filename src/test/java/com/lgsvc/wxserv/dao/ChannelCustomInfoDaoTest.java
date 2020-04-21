@@ -22,7 +22,7 @@ class ChannelCustomInfoDaoTest {
     ChannelCustomInfoDao channelCustomInfoDao;
 
     @Test
-    void querCwUserByUid() {
+    void testQueryChannelCustomInfo() {
         List<ChannelCustomInfoEntity> channelCustomInfoEntityList= channelCustomInfoDao.queryChannelCustomInfo(12345);
         System.out.print(channelCustomInfoEntityList.toString());
     }

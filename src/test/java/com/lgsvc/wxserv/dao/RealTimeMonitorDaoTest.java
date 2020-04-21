@@ -15,7 +15,6 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@Slf4j
 class RealTimeMonitorDaoTest {
 
     @Autowired
@@ -23,10 +22,7 @@ class RealTimeMonitorDaoTest {
 
     @Test
     void queryRealTimeMonitoringByCustomerIdTest() {
-        log.debug("-----开始");
         List<RealTimeMonitor> realTimeMonitoringList = realTimeMonitoringDao.queryRealTimeMonitorByCustomerId(12345);
-
         System.out.print("返回结果" + realTimeMonitoringList.size());
-        log.debug("-----结束");
     }
 }

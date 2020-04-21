@@ -1,7 +1,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lgsvc.wxserv.dao.RealTimeMonitorDao">
+<mapper namespace="com.lgsvc.wxserv.dao.ChannelCustomInfoDao">
     <select id="queryChannelCustomInfo" parameterType="Integer" resultType="com.lgsvc.wxserv.entity.ChannelCustomInfoEntity">
         SELECT T1.id ,
         T1.sortstr,

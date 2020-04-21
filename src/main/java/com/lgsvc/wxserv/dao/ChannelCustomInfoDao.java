@@ -21,4 +21,5 @@ public interface ChannelCustomInfoDao {
  * @return
  */
     public List<ChannelCustomInfoEntity> queryChannelCustomInfo(Integer customerId);
+
 }
