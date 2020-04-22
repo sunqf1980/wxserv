@@ -71,4 +71,12 @@ public class ChannelCustomExecution {
     public void setChannelCustomInfo(ChannelCustomInfoEntity channelCustomInfo) {
         ChannelCustomInfo = channelCustomInfo;
     }
+
+    public List<ChannelCustomInfoEntity> getChannelCustomInfoList() {
+        return ChannelCustomInfoList;
+    }
+
+    public ChannelCustomInfoEntity getChannelCustomInfo() {
+        return ChannelCustomInfo;
+    }
 }
