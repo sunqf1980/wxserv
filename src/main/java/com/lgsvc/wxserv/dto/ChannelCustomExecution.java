@@ -1,7 +1,7 @@
 package com.lgsvc.wxserv.dto;
 
 import com.lgsvc.wxserv.entity.ChannelCustomInfoEntity;
-import com.lgsvc.wxserv.enums.ChannelCustomEnum;
+import com.lgsvc.wxserv.enums.ChannelCustomStateEnum;
 
 import java.util.List;
 
@@ -20,22 +20,21 @@ public class ChannelCustomExecution {
     // 返回结果总条数
     private int count;
 
-
-    // shop列表(查询店铺列表的时候使用)
-    private List<ChannelCustomInfoEntity> ChannelCustomInfo;
+    private List<ChannelCustomInfoEntity> ChannelCustomInfoList;
+    private ChannelCustomInfoEntity ChannelCustomInfo;
 
     public ChannelCustomExecution() {
 
     }
 
     // 操作失败的时候使用的构造器
-    public ChannelCustomExecution(ChannelCustomEnum channelCustomEnumEnum) {
+    public ChannelCustomExecution(ChannelCustomStateEnum channelCustomEnumEnum) {
         this.state = channelCustomEnumEnum.getState();
         this.stateInfo = channelCustomEnumEnum.getStateInfo();
     }
 
     // 操作成功的时候使用的构造器
-    public ChannelCustomExecution(ChannelCustomEnum channelCustomEnumEnum, ChannelCustomInfoEntity channelCustomInfoEntity) {
+    public ChannelCustomExecution(ChannelCustomStateEnum channelCustomEnumEnum, ChannelCustomInfoEntity channelCustomInfoEntity) {
         this.state = channelCustomEnumEnum.getState();
         this.stateInfo = channelCustomEnumEnum.getStateInfo();
     }
@@ -65,4 +64,11 @@ public class ChannelCustomExecution {
         this.count = count;
     }
 
+    public void setChannelCustomInfoList(List<ChannelCustomInfoEntity> channelCustomInfoList) {
+        ChannelCustomInfoList = channelCustomInfoList;
+    }
+
+    public void setChannelCustomInfo(ChannelCustomInfoEntity channelCustomInfo) {
+        ChannelCustomInfo = channelCustomInfo;
+    }
 }

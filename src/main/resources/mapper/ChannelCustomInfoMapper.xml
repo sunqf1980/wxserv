@@ -32,4 +32,12 @@
         WHERE t1.customerid=#{customerid}
     </select>
 
+    <select id="queryChannelCustomInfoCountByCustomId" parameterType="Integer" resultType="Integer">
+        SELECT COUNT(*)
+        FROM cw_channel T1 LEFT JOIN
+        (SELECT * FROM cw_tempcurr WHERE customerid=#{customerid}  ORDER BY intime  DESC LIMIT 0,1 ) as T2
+        on T1.customerid=T2.customerid
+        WHERE t1.customerid=#{customerid}
+    </select>
+
 </mapper>
