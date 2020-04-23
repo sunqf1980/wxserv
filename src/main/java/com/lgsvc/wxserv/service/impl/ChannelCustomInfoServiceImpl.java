@@ -27,9 +27,11 @@ public class ChannelCustomInfoServiceImpl implements ChannelCustomInfoService {
     public ChannelCustomExecution getChannelCustomList(Integer customId) {
 
         ChannelCustomExecution se = new ChannelCustomExecution();
-        if (customId == 0) {
+        //客户的Id怎么会为负数呢？主要检查integer的判断
+        if (customId.intValue() <= 0 )  {
             se.setState(ChannelCustomStateEnum.NULL_CUSTOMID.getState());
             se.setStateInfo(ChannelCustomStateEnum.NULL_CUSTOMID.getStateInfo());
+            return se;
         }
         List<ChannelCustomInfoEntity> channelCustomList = channelCustomInfoDao.queryChannelCustomInfo(customId);
         int count = channelCustomInfoDao.queryChannelCustomInfoCountByCustomId(customId);
