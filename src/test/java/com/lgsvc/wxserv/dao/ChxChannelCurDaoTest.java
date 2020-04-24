@@ -1,6 +1,7 @@
 package com.lgsvc.wxserv.dao;
 
-import com.lgsvc.wxserv.entity.RealTimeMonitor;
+import com.lgsvc.wxserv.entity.ChannelCustomInfoEntity;
+import com.lgsvc.wxserv.entity.ChxChannelCurEntity;
 import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -11,17 +12,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class RealTimeMonitorDaoTest {
+class ChxChannelCurDaoTest {
 
     @Autowired
-    RealTimeMonitorDao realTimeMonitoringDao;
+    ChxChannelCurDao chxChannelCurDao;
 
     @Test
-    void queryRealTimeMonitoringByCustomerIdTest() {
-        List<RealTimeMonitor> realTimeMonitoringList = realTimeMonitoringDao.queryRealTimeMonitorByCustomerId(12345);
-        System.out.print("返回结果" + realTimeMonitoringList.size());
+    void testQueryChannelCustomInfo() {
+        List<ChxChannelCurEntity> chxList= chxChannelCurDao.queryChxChannelCurList(12345,"CH1", 0,100);
+        System.out.print(chxList.toString());
     }
+
 }

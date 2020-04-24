@@ -1,9 +1,7 @@
 package com.lgsvc.wxserv.entity;
 
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+
 
 /**
  * 设备客户实体类

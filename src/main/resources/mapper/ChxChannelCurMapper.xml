@@ -2,44 +2,34 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lgsvc.wxserv.dao.ChxChannelCurDao">
-    <select id="queryChxChannelCurList" parameterType="Integer" resultType="com.lgsvc.wxserv.entity.ChxChannelCurEntity">
-        SELECT T1.id ,
-        T1.sortstr,
-        T1.sortint,
-        T1.descript,
-        T1.devname,
-        T1.devaddr,
-        T1.sortid,
-        T1.gatherway,
-        T1.comnum,
-        T1.sv,
-        T1.lowvalue,
-        T1.highvalue,
-        T1.l2,
-        T1.h2,
-        T1.use2,
-        T1.xa,
-        T1.xb,
-        T1.state,
-        T1.agroup,
-        T2.id,
-        T2.chx,
-        T2.val,
-        T2.state
-        FROM cw_channel T1 LEFT JOIN
-        (SELECT * FROM cw_tempcurr WHERE customerid=#{customerid}  ORDER BY intime  DESC LIMIT 0,1 ) as T2
-        on T1.customerid=T2.customerid
-        WHERE t1.customerid=#{customerid}
-        ORDER BY intime DESC
+    <resultMap id="ChxChannelRestMap" type="com.lgsvc.wxserv.entity.ChxChannelCurEntity">
+        <result column="channel_id" property="channel_id"/>
+        <result column="sortstr" property="sortstr"/>
+        <result column="sortint" property="sortint"/>
+        <result column="descript" property="descript"/>
+        <result column="lowvalue" property="lowvalue"/>
+        <result column="highvalue" property="highvalue"/>
+        <result column="val" property="val"/>
+        <result column="state_cur" property="state_cur"/>
+    </resultMap>
+    <select id="queryChxChannelCurList" parameterType="Integer" resultMap="ChxChannelRestMap">
+        SELECT T1.id as channel_id , T1.chx as sortstr , T2.sortint,
+        T2.descript, T2.sv,t2.lowvalue, T2.highvalue, T1.val,
+        T1.cur as state_cur
+        FROM cw_tempcurr T1 LEFT JOIN cw_channel T2 on T1.customerid=T2.customerid and T1.chx =T2.sortstr
+        where
+        T1.customerid=#{customerid}
+        and T1.chx=#{chx}
+        ORDER BY T1.intime DESC
         LIMIT #{rowIndex},#{pageSize};
     </select>
 
     <select id="queryChxChannelCurCount" parameterType="Integer" resultType="Integer">
         SELECT COUNT(*)
-        FROM cw_channel T1 LEFT JOIN
-        (SELECT * FROM cw_tempcurr WHERE customerid=#{customerid}  ORDER BY intime  DESC LIMIT 0,1 ) as T2
-        on T1.customerid=T2.customerid
-        WHERE t1.customerid=#{customerid}
+        FROM cw_tempcurr T1 LEFT JOIN cw_channel T2 on T1.customerid=T2.customerid and T1.chx =T2.sortstr
+        where
+        T1.customerid=#{customerid}
+        and T1.chx=#{chx}
     </select>
 
 </mapper>
