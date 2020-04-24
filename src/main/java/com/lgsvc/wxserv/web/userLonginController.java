@@ -5,6 +5,8 @@ import com.lgsvc.wxserv.util.ValidationUtil;
 import com.lgsvc.wxserv.entity.CwUser;
 import com.lgsvc.wxserv.util.HttpServletRequestUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,10 +19,10 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/wxapp")
-@Slf4j
 public class userLonginController {
     @Autowired
     private CwUserService cwUserService;
+    private final static Logger LOG = LoggerFactory.getLogger(userLonginController.class);
 
     @RequestMapping(value = "/user_login", method = RequestMethod.POST)
     @ResponseBody
@@ -34,7 +36,7 @@ public class userLonginController {
             modelMap.put("errMsg", "输入参数有误");
             return modelMap;
         }
-        log.warn("hille word");
+
         CwUser cwUser = cwUserService.getCwUserByuId(userNumId);
         if (!cwUser.getUpWd().equals(userPasswd)) {
             modelMap.put("success", false);

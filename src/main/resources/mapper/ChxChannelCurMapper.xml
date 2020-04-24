@@ -1,8 +1,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lgsvc.wxserv.dao.ChannelCustomInfoDao">
-    <select id="queryChannelCustomInfo" parameterType="Integer" resultType="com.lgsvc.wxserv.entity.ChannelCustomInfoEntity">
+<mapper namespace="com.lgsvc.wxserv.dao.ChxChannelCurDao">
+    <select id="queryChxChannelCurList" parameterType="Integer" resultType="com.lgsvc.wxserv.entity.ChxChannelCurEntity">
         SELECT T1.id ,
         T1.sortstr,
         T1.sortint,
@@ -25,14 +25,16 @@
         T2.id,
         T2.chx,
         T2.val,
-        T2.state as state_cur
+        T2.state
         FROM cw_channel T1 LEFT JOIN
         (SELECT * FROM cw_tempcurr WHERE customerid=#{customerid}  ORDER BY intime  DESC LIMIT 0,1 ) as T2
         on T1.customerid=T2.customerid
         WHERE t1.customerid=#{customerid}
+        ORDER BY intime DESC
+        LIMIT #{rowIndex},#{pageSize};
     </select>
 
-    <select id="queryChannelCustomInfoCountByCustomId" parameterType="Integer" resultType="Integer">
+    <select id="queryChxChannelCurCount" parameterType="Integer" resultType="Integer">
         SELECT COUNT(*)
         FROM cw_channel T1 LEFT JOIN
         (SELECT * FROM cw_tempcurr WHERE customerid=#{customerid}  ORDER BY intime  DESC LIMIT 0,1 ) as T2

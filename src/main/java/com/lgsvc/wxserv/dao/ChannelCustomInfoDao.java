@@ -11,16 +11,28 @@ import java.util.List;
  * @author sunqf1980@163.com
  */
 public interface ChannelCustomInfoDao {
-/**
- * Channel端管理接口
- * 主要以channel表为主进行数据查询
- * @function ChannelCustomInfoDao
- * @param awardCondition
- * @param rowIndex
- * @param pageSize
- * @return
- */
+    /**
+     * Channel端管理接口
+     * 主要以channel表为主进行数据查询
+     *
+     * @param awardCondition
+     * @param rowIndex
+     * @param pageSize
+     * @return
+     * @function ChannelCustomInfoDao
+     */
     public List<ChannelCustomInfoEntity> queryChannelCustomInfo(Integer customerId);
+
+    /**
+     * Channel端管理接口
+     * 主要以channel表为主进行数据查询--获取表的个数-----
+     *
+     * @param awardCondition
+     * @param rowIndex
+     * @param pageSize
+     * @return
+     * @function ChannelCustomInfoDao
+     */
     public Integer queryChannelCustomInfoCountByCustomId(Integer customerId);
 
 }

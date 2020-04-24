@@ -1,4 +1,4 @@
-package com.lgsvc.wxserv.handler;
+package com.lgsvc.wxserv.exception;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
