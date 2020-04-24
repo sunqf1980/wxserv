@@ -28,4 +28,9 @@ class ChxChannelCurDaoTest {
         System.out.print(chxList.toString());
     }
 
+    @Test
+    void testQueryChannelCountInfo() {
+        Integer count = chxChannelCurDao.queryChxChannelCurCount(12345,"CH1");
+        System.out.print("返回值： =" + count );
+    }
 }

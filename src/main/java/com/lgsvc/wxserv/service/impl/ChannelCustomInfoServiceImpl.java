@@ -25,7 +25,6 @@ public class ChannelCustomInfoServiceImpl implements ChannelCustomInfoService {
 
     @Override
     public ChannelCustomExecution getChannelCustomList(Integer customId) {
-
         ChannelCustomExecution se = new ChannelCustomExecution();
         //客户的Id怎么会为负数呢？主要检查integer的判断
         if (customId.intValue() <= 0 )  {

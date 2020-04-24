@@ -13,6 +13,7 @@ public interface ChannelCustomInfoService {
      *
      * @return
      */
+
    public ChannelCustomExecution getChannelCustomList(Integer customId);
 
 
