@@ -12,23 +12,23 @@
         <result column="val" property="val"/>
         <result column="state_cur" property="state_cur"/>
     </resultMap>
-    <select id="queryChxChannelCurList" parameterType="Integer" resultMap="ChxChannelRestMap">
+    <select id="queryChxChannelCurList" resultMap="ChxChannelRestMap">
         SELECT T1.id as channel_id , T1.chx as sortstr , T2.sortint,
-        T2.descript, T2.sv,t2.lowvalue, T2.highvalue, T1.val,
-        T1.cur as state_cur
+        T2.descript, T2.sv, t2.lowvalue, T2.highvalue, T1.val,
+        T1.state as state_cur
         FROM cw_tempcurr T1 LEFT JOIN cw_channel T2 on T1.customerid=T2.customerid and T1.chx =T2.sortstr
         where
-        T1.customerid=#{customerid}
+        T1.customerid=#{customerId}
         and T1.chx=#{chx}
         ORDER BY T1.intime DESC
         LIMIT #{rowIndex},#{pageSize};
     </select>
 
-    <select id="queryChxChannelCurCount" parameterType="Integer" resultType="Integer">
+    <select id="queryChxChannelCurCount" resultType="Integer">
         SELECT COUNT(*)
         FROM cw_tempcurr T1 LEFT JOIN cw_channel T2 on T1.customerid=T2.customerid and T1.chx =T2.sortstr
         where
-        T1.customerid=#{customerid}
+        T1.customerid=#{customerId}
         and T1.chx=#{chx}
     </select>
 
