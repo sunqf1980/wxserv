@@ -11,7 +11,7 @@ import java.util.List;
  * @author sunqf1980@163.com
  */
 
-public class CwTempCurr {
+public class CwTempCurrEntity {
     private String id;
     private Date inTime;
     private Integer flag;

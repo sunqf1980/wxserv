@@ -4,7 +4,7 @@ package com.lgsvc.wxserv.entity;
 import java.util.Date;
 
 
-public class CwUser {
+public class CwUserEntity {
     private String id;
     private Date inTime;
     private Integer flag;

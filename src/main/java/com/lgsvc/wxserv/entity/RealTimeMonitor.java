@@ -18,8 +18,8 @@ public class RealTimeMonitor {
     private String chx;
     private Double curVal;   //怎么会有这样的结构，晕 当前温度
     private Integer state;
-    private List<CwTempCurr> cwTempCurr;
-    private List<CwChannel> cwChannel;
+    private List<CwTempCurrEntity> cwTempCurr;
+    private List<CwChannelEntity> cwChannel;
 
     public Integer getCustomerId() {
         return customerId;
@@ -53,19 +53,19 @@ public class RealTimeMonitor {
         this.state = state;
     }
 
-    public List<CwTempCurr> getCwTempCurr() {
+    public List<CwTempCurrEntity> getCwTempCurr() {
         return cwTempCurr;
     }
 
-    public void setCwTempCurr(List<CwTempCurr> cwTempCurr) {
+    public void setCwTempCurr(List<CwTempCurrEntity> cwTempCurr) {
         this.cwTempCurr = cwTempCurr;
     }
 
-    public List<CwChannel> getCwChannel() {
+    public List<CwChannelEntity> getCwChannel() {
         return cwChannel;
     }
 
-    public void setCwChannel(List<CwChannel> cwChannel) {
+    public void setCwChannel(List<CwChannelEntity> cwChannel) {
         this.cwChannel = cwChannel;
     }
 }

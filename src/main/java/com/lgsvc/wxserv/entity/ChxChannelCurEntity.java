@@ -1,5 +1,7 @@
 package com.lgsvc.wxserv.entity;
 
+import java.util.Date;
+
 /**
  * 设备客户实体类
  *
@@ -7,6 +9,7 @@ package com.lgsvc.wxserv.entity;
  */
 public class ChxChannelCurEntity {
     private String channel_id;
+    private Date inTime;
     private String sortstr;
     private Integer sortint;
     private String descript;
@@ -22,6 +25,14 @@ public class ChxChannelCurEntity {
 
     public void setChannel_id(String channel_id) {
         this.channel_id = channel_id;
+    }
+
+    public Date getInTime() {
+        return inTime;
+    }
+
+    public void setInTime(Date inTime) {
+        this.inTime = inTime;
     }
 
     public String getSortstr() {

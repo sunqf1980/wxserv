@@ -2,7 +2,7 @@ package com.lgsvc.wxserv.web;
 
 import com.lgsvc.wxserv.service.CwUserService;
 import com.lgsvc.wxserv.util.ValidationUtil;
-import com.lgsvc.wxserv.entity.CwUser;
+import com.lgsvc.wxserv.entity.CwUserEntity;
 import com.lgsvc.wxserv.util.HttpServletRequestUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,29 +17,33 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/wxapp")
+@RequestMapping("/user")
 public class userLonginController {
     @Autowired
     private CwUserService cwUserService;
     private final static Logger LOG = LoggerFactory.getLogger(userLonginController.class);
 
-    @RequestMapping(value = "/user_login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     private Map<String, Object> userLoginCheck(HttpServletRequest request) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
+        String ErrMsg="";
         /* 获取输入的 登陆id*/
-        String userNumId = HttpServletRequestUtil.getString(request, "userNum");
-        String userPasswd = HttpServletRequestUtil.getString(request, "UserPassword");
-        if (ValidationUtil.isEmpty(userNumId) || ValidationUtil.isEmpty(userPasswd)) {
+        System.out.print(request);
+        String userNumId = HttpServletRequestUtil.getString(request, "userName");
+        String userPasswd = HttpServletRequestUtil.getString(request, "userPassword");
+        if (ValidationUtil.isEmpty(userNumId) && ValidationUtil.isEmpty(userPasswd)) {
+            ErrMsg="参数错误"+userNumId+"-"+userPasswd;
             modelMap.put("success", false);
-            modelMap.put("errMsg", "输入参数有误");
+            //modelMap.put("errMsg", "输入参数有误");
+            modelMap.put("errMsg", ErrMsg);
             return modelMap;
         }
 
-        CwUser cwUser = cwUserService.getCwUserByuId(userNumId);
+        CwUserEntity cwUser = cwUserService.getCwUserByuId(userNumId);
         if (!cwUser.getUpWd().equals(userPasswd)) {
             modelMap.put("success", false);
-            modelMap.put("errMsg", "密码失败");
+            modelMap.put("errMsg", "密码有误");
             return modelMap;
         }
         modelMap.put("success", true);

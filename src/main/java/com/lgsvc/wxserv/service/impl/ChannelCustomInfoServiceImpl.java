@@ -30,7 +30,7 @@ public class ChannelCustomInfoServiceImpl implements ChannelCustomInfoService {
         if (customId.intValue() <= 0 )  {
             se.setState(ChannelCustomStateEnum.NULL_CUSTOMID.getState());
             se.setStateInfo(ChannelCustomStateEnum.NULL_CUSTOMID.getStateInfo());
-            return se;
+            throw new RuntimeException();
         }
         List<ChannelCustomInfoEntity> channelCustomList = channelCustomInfoDao.queryChannelCustomInfo(customId);
         int count = channelCustomInfoDao.queryChannelCustomInfoCountByCustomId(customId);

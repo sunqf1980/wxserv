@@ -3,13 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lgsvc.wxserv.dao.RealTimeMonitorDao">
-    <resultMap id="RealTimeMonitorMap" type="com.lgsvc.wxserv.entity.CwTempCurr">
+    <resultMap id="RealTimeMonitorMap" type="com.lgsvc.wxserv.entity.CwTempCurrEntity">
         <id column="cur_id" property="id"/>
         <result column="cur_id" property="id"/>
         <result column="val" property="curVal"/>
         <result column="chx" property="chx"/>
         <result column="state" property="state"/>
-        <collection property="cwChannel" column="customerid" javaType="list" ofType="com.lgsvc.wxserv.entity.CwChannel">
+        <collection property="cwChannel" column="customerid" javaType="list" ofType="com.lgsvc.wxserv.entity.CwChannelEntity">
             <result column="channel_id" property="id"/>
             <result column="descript" property="descript"/>
             <result column="sortint" property="sortint"/>

@@ -1,6 +1,6 @@
 package com.lgsvc.wxserv.dao;
 
-import com.lgsvc.wxserv.entity.CwUser;
+import com.lgsvc.wxserv.entity.CwUserEntity;
 
 
 public interface CwUserDao {
@@ -11,6 +11,6 @@ public interface CwUserDao {
      *
      * @return area
      */
-    CwUser queryCwUserById(String areaId);
+    CwUserEntity queryCwUserById(String areaId);
 
 }

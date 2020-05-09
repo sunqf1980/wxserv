@@ -1,8 +1,6 @@
 package com.lgsvc.wxserv.dto;
 
-import com.lgsvc.wxserv.entity.ChannelCustomInfoEntity;
 import com.lgsvc.wxserv.entity.ChxChannelCurEntity;
-import com.lgsvc.wxserv.enums.ChannelCustomStateEnum;
 import com.lgsvc.wxserv.enums.ChxCurStateEnum;
 
 import java.util.List;
