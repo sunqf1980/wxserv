@@ -17,5 +17,5 @@ public interface ChxCurService {
      * @param chx
      * @return
      */
-    public ChxCurExecution ChxCurList(Integer customId, String chx,Integer rowIndex, Integer pageSize );
+    public ChxCurExecution ChxCurList(Integer customId, String chx, Integer rowIndex, Integer pageSize );
 }

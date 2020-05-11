@@ -55,8 +55,9 @@ public class channelMangerController {
     }
 
     /**
-     *  前端交易---chx_curr_channel 实现
-     * @param  customerid channel_id
+     * 前端交易---chx_curr_channel 实现
+     *
+     * @param customerid channel_id
      * @return
      */
     @RequestMapping(value = "/chx_curr_channel", method = RequestMethod.POST)
@@ -67,10 +68,11 @@ public class channelMangerController {
         String channelId = HttpServletRequestUtil.getString(request, "channel_id");
         Integer pageIndex = HttpServletRequestUtil.getInt(request, "page_index");
         Integer pageSize = HttpServletRequestUtil.getInt(request, "page_size");
+        LOG.info("获取的参数:" + customId + "channelId: " + channelId + "pags_index:" + pageIndex + "page_size:" + pageSize);
 
         try {
             // 获取区域列表信息
-            ChxCurExecution se = chxCurService.ChxCurList(customId, channelId,pageIndex,pageSize);
+            ChxCurExecution se = chxCurService.ChxCurList(customId, channelId, pageIndex, pageSize);
             modelMap.put("cur_chx_channel", se.getChxCurList());
             modelMap.put("count", se.getCount());
             modelMap.put("success", true);
@@ -85,10 +87,10 @@ public class channelMangerController {
 
 
     /**
-     *  前端交易---his_channel 实现
-     * @param  customerid channel_id
-     *         channel_id
+     * 前端交易---his_channel 实现
      *
+     * @param customerid channel_id
+     *                   channel_id
      * @return
      */
     @RequestMapping(value = "/his_channel", method = RequestMethod.POST)
@@ -102,7 +104,7 @@ public class channelMangerController {
 
         try {
             // 获取区域列表信息
-            ChannelHisExecution se = channelHisService.getChannelHisList(customId, channelId,pageIndex,pageSize);
+            ChannelHisExecution se = channelHisService.getChannelHisList(customId, channelId, pageIndex, pageSize);
             modelMap.put("his_chx_channel", se.getChxHisList());
             modelMap.put("count", se.getCount());
             modelMap.put("success", true);

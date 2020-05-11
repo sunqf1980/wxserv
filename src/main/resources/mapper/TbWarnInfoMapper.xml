@@ -1,0 +1,94 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lgsvc.wxserv.dao.TbWarnInfoDao">
+    <resultMap id="TbWarnInfoRestMap" type="com.lgsvc.wxserv.entity.TbWarnInfoEntity">
+        <result column="warn_id" property="warnId"/>
+        <result column="customerid" property="customerId"/>
+        <result column="channel_id" property="channelId"/>
+        <result column="channel_desc" property="channelDesc"/>
+        <result column="warn_lev" property="warnLev"/>
+        <result column="cur_datatime" property="curDatatime"/>
+        <result column="format_data" property="formatData"/>
+        <result column="custom_phone" property="customPhone"/>
+        <result column="custom_wxchat" property="customWxchat"/>
+        <result column="wran_stat" property="wranStat"/>
+        <result column="frequency_time" property="frequencyTime"/>
+        <result column="warn_desc" property="warnDesc"/>
+        <result column="warn_info" property="warnInfo"/>
+        <result column="is_show_front" property="isShowFront"/>
+        <result column="is_send_wxchat" property="isSendWxchat"/>
+        <result column="xw_res_err_code" property="xwResErrCode"/>
+        <result column="wx_res_err_msg" property="wxResErrMsg"/>
+    </resultMap>
+    <select id="queryTbWarnInfoList" resultMap="TbWarnInfoRestMap">
+        SELECT T1.warn_id ,T1.customerid ,T1.channel_id, T1.channel_desc ,T1.warn_lev,
+        T1.cur_datatime, T1.format_data ,T1.custom_phone ,T1.custom_wxchat,
+        T1.wran_stat ,T1.frequency_time ,T1.warn_desc,
+        t1.warn_info ,T1.is_show_front ,T1.is_send_wxchat ,
+        T1.xw_res_err_code ,T1.wx_res_err_msg
+        FROM tb_warn_front T1
+        WHERE
+        T1.customerid=#{customer_Id}
+        ORDER BY T1.is_show_front, T1.cur_datatime DESC
+        LIMIT #{rowIndex},#{pageSize};
+    </select>
+
+    <select id="querTbWarnInfoListNewcount" resultType="Integer">
+        SELECT COUNT(*)
+        FROM tb_warn_front T1
+        WHERE
+        T1.customerid=#{customer_Id}
+        and T1.is_show_front=#{is_show_front};
+    </select>
+
+    <select id="querTbWarnInfoListcount" resultType="Integer">
+        SELECT COUNT(*)
+        FROM tb_warn_front T1
+        WHERE
+        T1.customerid=#{customer_Id};
+    </select>
+
+    <insert id="insertTbWarnInfo" useGeneratedKeys="true" keyProperty="warnId"
+            keyColumn="area_id">
+        INSERT INTO
+        tb_warn_front
+        (customerid ,channel_id, channel_desc ,warn_lev,
+        cur_datatime, format_data ,custom_phone ,custom_wxchat,
+        wran_stat ,frequency_time ,warn_desc,
+        warn_info ,is_show_front ,is_send_wxchat ,
+        xw_res_err_code ,wx_res_err_msg)
+        VALUES
+        (#{customerId},#{channelId}, #{channelDesc},#{warnLev},
+        #{curDatatime}, #{formatData} , #{customPhone},#{customWxchat},
+        #{wranStat} ,#{frequencyTime} ,#{warnDesc},
+        #{warnInfo} ,#{isShowFront} ,#{isSendWxchat} ,
+        #{xwResErrCode} ,#{wxResErrMsg} )
+    </insert>
+    <update id="updateTbWarnInfo" parameterType="com.lgsvc.wxserv.entity.TbWarnInfoEntity">
+        UPDATE tb_warn_front
+        <set>
+            <if test="customerId != null">customerid=#{customerId},</if>
+            <if test="channelId != null">channel_id=#{channelId},</if>
+            <if test="channelDesc != null">channel_desc=#{channelDesc}</if>
+            <if test="warnLev != null">warn_lev=#{warnLev}</if>
+            <if test="curDatatime != null">cur_datatime=#{curDatatime}</if>
+            <if test="formatData != null">format_data=#{formatData}</if>
+            <if test="customPhone != null">custom_phone=#{customPhone}</if>
+            <if test="customWxchat != null">custom_wxchat=#{customWxchat}</if>
+            <if test="wranStat != null">wran_stat=#{wranStat}</if>
+            <if test="frequencyTime != null">frequency_time=#{frequencyTime}</if>
+            <if test="warnDesc != null">warn_desc=#{warnDesc}</if>
+            <if test="warnInfo != null">warn_info=#{warnInfo}</if>
+            <if test="isShowFront != null">is_show_front=#{isShowFront}</if>
+            <if test="isSendWxchat != null">is_send_wxchat=#{isSendWxchat}</if>
+            <if test="xwResErrCode != null">xw_res_err_code=#{xwResErrCode}</if>
+            <if test="wxResErrMsg != null">wx_res_err_msg=#{wxResErrMsg}</if>
+        </set>
+        where warn_id=#{warnId}
+    </update>
+
+
+
+
+</mapper>

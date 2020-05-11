@@ -18,6 +18,8 @@ public class ChxChannelCurEntity {
     private Double highvalue;
     private Double val;
     private Integer state_cur;
+    private String format_data;
+
 
     public String getChannel_id() {
         return channel_id;
@@ -97,5 +99,31 @@ public class ChxChannelCurEntity {
 
     public void setState_cur(Integer state_cur) {
         this.state_cur = state_cur;
+    }
+
+
+    public String getFormat_data() {
+        return format_data;
+    }
+
+    public void setFormat_data(String format_data) {
+        this.format_data = format_data;
+    }
+
+    @Override
+    public String toString() {
+        return "ChxChannelCurEntity{" +
+                "channel_id='" + channel_id + '\'' +
+                ", inTime=" + inTime +
+                ", sortstr='" + sortstr + '\'' +
+                ", sortint=" + sortint +
+                ", descript='" + descript + '\'' +
+                ", sv=" + sv +
+                ", lowvalue=" + lowvalue +
+                ", highvalue=" + highvalue +
+                ", val=" + val +
+                ", state_cur=" + state_cur +
+                ", format_data='" + format_data + '\'' +
+                '}';
     }
 }

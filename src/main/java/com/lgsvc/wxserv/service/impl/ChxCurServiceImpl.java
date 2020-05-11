@@ -3,7 +3,6 @@ package com.lgsvc.wxserv.service.impl;
 import com.lgsvc.wxserv.dao.ChxChannelCurDao;
 import com.lgsvc.wxserv.dto.ChxCurExecution;
 import com.lgsvc.wxserv.entity.ChxChannelCurEntity;
-import com.lgsvc.wxserv.enums.ChannelCustomStateEnum;
 import com.lgsvc.wxserv.enums.ChxCurStateEnum;
 import com.lgsvc.wxserv.service.ChxCurService;
 import org.slf4j.Logger;
@@ -40,23 +39,43 @@ public class ChxCurServiceImpl implements ChxCurService {
             se.setStateInfo(ChxCurStateEnum.NULL_HAX.getStateInfo());
             throw new RuntimeException();
         }
+
+        if( rowIndex<0 || pageSize<=0){
+            LOG.error("交易chx_curr_channel，上送的rowIndex"+rowIndex);
+            se.setState(ChxCurStateEnum.NULL_HAX.getState());
+            se.setStateInfo(ChxCurStateEnum.NULL_HAX.getStateInfo());
+            return se;
+
+
+
+        }
+
         int count = chxDao.queryChxChannelCurCount(customId,chx);
-        if(count <= 0){
+        if(count < 0){
             LOG.error("交易chx_curr_channel，数据库错误,或许没有["+count+"] customer_id=["+customId+"]channel_id=["+chx+"]");
             se.setState(ChxCurStateEnum.INNER_ERROR.getState());
             se.setStateInfo(ChxCurStateEnum.INNER_ERROR.getStateInfo());
             throw new RuntimeException();
         }
+
+        //如果数据库中没有数据,直接返回成功
+        if(count == 0){
+            se.setCount(count);
+            se.setState(ChxCurStateEnum.NULL_DATA.getState());
+            se.setStateInfo(ChxCurStateEnum.NULL_DATA.getStateInfo());
+            throw new RuntimeException();
+        }
+
         List<ChxChannelCurEntity> chxList = chxDao.queryChxChannelCurList(customId, chx, rowIndex, pageSize);
         if (chxList != null) {
             se.setChxCurList(chxList);
             se.setCount(count);
-            se.setState(ChannelCustomStateEnum.SUCCESS.getState());
-            se.setStateInfo(ChannelCustomStateEnum.SUCCESS.getStateInfo());
+            se.setState(ChxCurStateEnum.SUCCESS.getState());
+            se.setStateInfo(ChxCurStateEnum.SUCCESS.getStateInfo());
             se.setChxCurList(chxList);
         } else {
-            se.setState(ChannelCustomStateEnum.INNER_ERROR.getState());
-            se.setStateInfo(ChannelCustomStateEnum.INNER_ERROR.getStateInfo());
+            se.setState(ChxCurStateEnum.INNER_ERROR.getState());
+            se.setStateInfo(ChxCurStateEnum.INNER_ERROR.getStateInfo());
         }
         return se;
     }

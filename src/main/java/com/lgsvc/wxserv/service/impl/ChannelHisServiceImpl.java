@@ -34,7 +34,6 @@ public class ChannelHisServiceImpl implements ChannelHisService {
             se.setState(ChannelHisEnum.INNER_ERROR.getState());
             se.setStateInfo(ChannelHisEnum.INNER_ERROR.getStateInfo());
             throw new RuntimeException();
-
         }
         List<CwTempTempEntity> chxHisList = cwTempTempDao.queryChannelTempTempList(customId, channel_id, page_index,page_size);
         if (chxHisList != null) {

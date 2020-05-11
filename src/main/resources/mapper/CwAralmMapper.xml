@@ -1,0 +1,29 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lgsvc.wxserv.dao.CwAralmDao">
+    <resultMap id="CwAralmRestMap" type="com.lgsvc.wxserv.entity.CwAralmEntity">
+        <result column="id" property="id"/>
+        <result column="intime" property="intime"/>
+        <result column="flag" property="flag"/>
+        <result column="customerid" property="customerid"/>
+        <result column="aobj" property="aobj"/>
+        <result column="atext" property="atext"/>
+        <result column="explain1" property="explain1"/>
+        <result column="explain2" property="explain2"/>
+        <result column="explain3" property="explain3"/>
+        <result column="amode" property="amode"/>
+        <result column="aok" property="aok"/>
+        <result column="format_data" property="format_data"/>
+    </resultMap>
+    <select id="queryCwAralmListByTime" resultMap="CwAralmRestMap">
+        SELECT T1.id ,T1.intime ,T1.flag, T1.customerid ,T1.aobj,
+        T1.atext, T1.explain1 ,T1.explain2 ,T1.explain3,
+        T1.amode ,T1.aok, DATE_FORMAT(T1.intime,'%Y-%m-%d:%H:%i:%s') as format_data
+        FROM cw_alarm T1
+        WHERE
+        T1.customerid=#{customer_Id}
+        ORDER BY  T1.intime DESC
+        LIMIT #{rowIndex},#{pageSize};
+    </select>
+</mapper>
