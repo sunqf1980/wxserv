@@ -3,7 +3,7 @@ package com.lgsvc.wxserv.dao;
 import com.lgsvc.wxserv.entity.CwUserEntity;
 
 
-public interface CwUserDao {
+public interface CwUserDao  {
 
 
     /**
@@ -11,6 +11,7 @@ public interface CwUserDao {
      *
      * @return area
      */
-    CwUserEntity queryCwUserById(String areaId);
+    public  CwUserEntity queryCwUserById(String areaId);
+    public  Integer queryCwUserByIdCount(String areaId);
 
 }

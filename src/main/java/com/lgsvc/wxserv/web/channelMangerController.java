@@ -3,6 +3,7 @@ package com.lgsvc.wxserv.web;
 import com.lgsvc.wxserv.dto.ChannelCustomExecution;
 import com.lgsvc.wxserv.dto.ChannelHisExecution;
 import com.lgsvc.wxserv.dto.ChxCurExecution;
+import com.lgsvc.wxserv.enums.ChannelCustomStateEnum;
 import com.lgsvc.wxserv.service.ChannelCustomInfoService;
 import com.lgsvc.wxserv.service.ChannelHisService;
 import com.lgsvc.wxserv.service.ChxCurService;
@@ -39,9 +40,15 @@ public class channelMangerController {
     public Map<String, Object> channelCustomInfo(HttpServletRequest request) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         Integer customId = HttpServletRequestUtil.getInt(request, "customer_id");
+        System.out.print("&&&&&&&&----"+ customId);
         try {
             // 获取区域列表信息
             ChannelCustomExecution se = channelCustomInfoService.getChannelCustomList(customId);
+            if(se.getState() != ChannelCustomStateEnum.SUCCESS.getState()) {
+                modelMap.put("success", false);
+                modelMap.put("errMsg", se.getStateInfo());
+                return modelMap;
+            }
             modelMap.put("channel_custom", se.getChannelCustomInfoList());
             modelMap.put("count", se.getCount());
             modelMap.put("success", true);
@@ -50,8 +57,8 @@ public class channelMangerController {
         } catch (Exception e) {
             modelMap.put("success", false);
             modelMap.put("errMsg", e.getMessage());
+            return modelMap;
         }
-        return modelMap;
     }
 
     /**

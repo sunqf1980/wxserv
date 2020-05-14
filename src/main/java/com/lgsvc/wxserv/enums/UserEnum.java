@@ -1,22 +1,20 @@
 package com.lgsvc.wxserv.enums;
 
-/**
- * 设备-客户查询交易枚举
- *
- * @author sunqf1980@163.com
- */
-public enum ChannelCustomStateEnum {
-
+public enum UserEnum {
     SUCCESS(0, "操作成功"), PASS(1, "通过认证"),
     CHECK(-1, "检查中"), OFFLINE(-2, "离线中"),
     INNER_ERROR(-1001, "内部系统错误"),
-    NULL_CHANNEL(-1002,"未找到对应的机构信息"),
-    NULL_CUSTOMID(-1003, "客户号为空");
+    NULL_CUSTOMID(-1003, "客户号为空"),
+    NULL_DATA(-1004,"此客户未注册,请先注册"),
+    NULL_RECOURCE(-1005,"未找到此资源"),
+    NULL_PARAMS(-1006,"参数有误,请检查用户名或密码"),
+    ERR_PASSWD(-1007,"密码错误"),
+    NULL_HAX(-2006,"通道号为空");
 
     private int state;
     private String stateInfo;
 
-    private ChannelCustomStateEnum(int state, String stateInfo) {
+    private UserEnum(int state, String stateInfo) {
         this.state = state;
         this.stateInfo = stateInfo;
     }
@@ -24,8 +22,8 @@ public enum ChannelCustomStateEnum {
     /**
      * 依据传入的state返回相应的enum值
      */
-    public static ChannelCustomStateEnum stateOf(int state) {
-        for (ChannelCustomStateEnum stateEnum : values()) {
+    public static UserEnum stateOf(int state) {
+        for (UserEnum stateEnum : values()) {
             if (stateEnum.getState() == state) {
                 return stateEnum;
             }

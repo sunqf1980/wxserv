@@ -3,27 +3,36 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lgsvc.wxserv.dao.CwAralmDao">
     <resultMap id="CwAralmRestMap" type="com.lgsvc.wxserv.entity.CwAralmEntity">
-        <result column="id" property="id"/>
         <result column="intime" property="intime"/>
-        <result column="flag" property="flag"/>
-        <result column="customerid" property="customerid"/>
         <result column="aobj" property="aobj"/>
         <result column="atext" property="atext"/>
-        <result column="explain1" property="explain1"/>
-        <result column="explain2" property="explain2"/>
-        <result column="explain3" property="explain3"/>
-        <result column="amode" property="amode"/>
-        <result column="aok" property="aok"/>
+        <result column="descript" property="descript"/>
+        <result column="devname" property="devname"/>
+        <result column="lowvalue" property="lowvalue"/>
+        <result column="highvalue" property="highvalue"/>
         <result column="format_data" property="format_data"/>
     </resultMap>
-    <select id="queryCwAralmListByTime" resultMap="CwAralmRestMap">
-        SELECT T1.id ,T1.intime ,T1.flag, T1.customerid ,T1.aobj,
-        T1.atext, T1.explain1 ,T1.explain2 ,T1.explain3,
-        T1.amode ,T1.aok, DATE_FORMAT(T1.intime,'%Y-%m-%d:%H:%i:%s') as format_data
-        FROM cw_alarm T1
+    <select id="queryCwAralmList" resultMap="CwAralmRestMap">
+        SELECT T1.intime ,T1.aobj, T1.atext,
+        DATE_FORMAT(T1.intime,'%Y-%m-%d %H:%i:%s') as format_data,
+        T2.descript, T2.devname,T2.lowvalue,
+        T2.highvalue
+        FROM cw_alarm T1 , cw_channel T2
         WHERE
         T1.customerid=#{customer_Id}
+        and T2.customerid=T1.customerid
+        and T2.sortstr=T1.aobj
         ORDER BY  T1.intime DESC
         LIMIT #{rowIndex},#{pageSize};
     </select>
+
+    <select id="queryCwAralmListCount" resultType="Integer">
+        SELECT count(*)
+        FROM cw_alarm T1, cw_channel T2
+        WHERE
+        T1.customerid=#{customer_Id}
+        and T2.customerid=T1.customerid
+        and T2.sortstr=T1.aobj
+    </select>
+
 </mapper>

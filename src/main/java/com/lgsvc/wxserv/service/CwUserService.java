@@ -1,5 +1,6 @@
 package com.lgsvc.wxserv.service;
 
+import com.lgsvc.wxserv.dto.UserExecution;
 import com.lgsvc.wxserv.entity.CwUserEntity;
 
 public interface CwUserService {
@@ -11,5 +12,5 @@ public interface CwUserService {
      * @param uId
      * @return
      */
-    CwUserEntity getCwUserByuId(String uId);
+    public UserExecution getCwUserByuId(String userName, String userPasswd);
 }

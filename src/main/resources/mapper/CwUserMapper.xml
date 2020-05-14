@@ -4,8 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lgsvc.wxserv.dao.CwUserDao">
     <select id="queryCwUserById" parameterType="String" resultType="com.lgsvc.wxserv.entity.CwUserEntity">
-        SELECT id, intime, flag, customerid,uid,upwd,uname, uphone,uemail,uwechat,
-        uexplain,umemo,cando
+        SELECT id, intime, flag, customerid, uid, upwd, uname, uphone, uemail, uwechat, uexplain, umemo, cando
+        FROM cw_user
+        WHERE uid=#{uid}
+    </select>
+
+    <select id="queryCwUserByIdCount" parameterType="String" resultType="Integer">
+        SELECT  count(*)
         FROM cw_user
         WHERE uid=#{uid}
     </select>

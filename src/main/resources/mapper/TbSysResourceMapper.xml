@@ -14,11 +14,13 @@
         <result column="resource_path" property="resource_path"/>
         <result column="task_file" property="task_file"/>
         <result column="file" property="file"/>
+        <result column="info" property="info"/>
+        <result column="info_desc" property="info_desc"/>
     </resultMap>
     <select id="queryTbSysResourceList" resultMap="TbSysResourceRestMap">
         SELECT T1.sys_name , T1.sys_info, T1.sys_stat , T1.task_id,
         T1.task_flags, T1.cron, t1.path, T1.bin_path, T1.resource_path,
-        T1.task_file,T1.file
+        T1.task_file,T1.file,T1.info ,T1.info_desc
         FROM tb_sys_resource T1
         WHERE
         T1.sys_name=#{sys_name}

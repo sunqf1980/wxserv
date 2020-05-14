@@ -1,5 +1,7 @@
 package com.lgsvc.wxserv.web;
 
+import com.lgsvc.wxserv.dto.ManageRecourcceExecution;
+import com.lgsvc.wxserv.dto.UserExecution;
 import com.lgsvc.wxserv.service.CwUserService;
 import com.lgsvc.wxserv.util.ValidationUtil;
 import com.lgsvc.wxserv.entity.CwUserEntity;
@@ -21,35 +23,40 @@ import java.util.Map;
 public class userLonginController {
     @Autowired
     private CwUserService cwUserService;
+
     private final static Logger LOG = LoggerFactory.getLogger(userLonginController.class);
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     private Map<String, Object> userLoginCheck(HttpServletRequest request) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        String ErrMsg="";
-        /* 获取输入的 登陆id*/
-        System.out.print(request);
+
         String userNumId = HttpServletRequestUtil.getString(request, "userName");
         String userPasswd = HttpServletRequestUtil.getString(request, "userPassword");
-        if (ValidationUtil.isEmpty(userNumId) && ValidationUtil.isEmpty(userPasswd)) {
-            ErrMsg="参数错误"+userNumId+"-"+userPasswd;
-            modelMap.put("success", false);
-            //modelMap.put("errMsg", "输入参数有误");
-            modelMap.put("errMsg", ErrMsg);
-            return modelMap;
-        }
 
-        CwUserEntity cwUser = cwUserService.getCwUserByuId(userNumId);
-        if (!cwUser.getUpWd().equals(userPasswd)) {
-            modelMap.put("success", false);
-            modelMap.put("errMsg", "密码有误");
+       System.out.print("传进的参数"+userNumId);
+        try {
+            // 获取区域列表信息
+            UserExecution se = cwUserService.getCwUserByuId(userNumId, userPasswd);
+            if(se.getUserEntity() == null){
+                modelMap.put("success", false);
+                modelMap.put("errMsg", se.getStateInfo());
+                return modelMap;
+            }
+            modelMap.put("success", true);
+            modelMap.put("errMsg", se.getStateInfo());
+            modelMap.put("UserInfo", se.getUserEntity());
+            modelMap.put("count", se.getCount());
+            System.out.print("已经返回errMsg");
             return modelMap;
+        } catch (Exception e) {
+            /* 出现异常信息,不能将异常抛给客户 */
+            modelMap.put("success", false);
+            modelMap.put("errMsg", "内部错误，请联系系统管理员【database is err]");
+            LOG.error(e.getMessage());
         }
-        modelMap.put("success", true);
-        modelMap.put("errMsg", "交易成功");
-        modelMap.put("UserInfo", cwUser);
         return modelMap;
     }
-
 }
+
+

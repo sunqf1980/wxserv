@@ -3,34 +3,14 @@ package com.lgsvc.wxserv.entity;
 import java.util.Date;
 
 public class CwAralmEntity {
-    private String id;
     private Date intime;
-    private Integer flag;
-    private Integer customerid;
+    private String format_data;
     private String aobj;
     private String atext;
-    private String explain1;
-    private String explain2;
-    private String explain3;
-    private Integer amode;
-    private Integer aok;
-    private String format_data;
-
-    public String getFormat_data() {
-        return format_data;
-    }
-
-    public void setFormat_data(String format_data) {
-        this.format_data = format_data;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    private String descript;
+    private String devname;
+    private Double lowvalue;
+    private Double highvalue;
 
     public Date getIntime() {
         return intime;
@@ -40,20 +20,12 @@ public class CwAralmEntity {
         this.intime = intime;
     }
 
-    public Integer getFlag() {
-        return flag;
+    public String getFormat_data() {
+        return format_data;
     }
 
-    public void setFlag(Integer flag) {
-        this.flag = flag;
-    }
-
-    public Integer getCustomerid() {
-        return customerid;
-    }
-
-    public void setCustomerid(Integer customerid) {
-        this.customerid = customerid;
+    public void setFormat_data(String format_data) {
+        this.format_data = format_data;
     }
 
     public String getAobj() {
@@ -72,60 +44,35 @@ public class CwAralmEntity {
         this.atext = atext;
     }
 
-    public String getExplain1() {
-        return explain1;
+    public String getDescript() {
+        return descript;
     }
 
-    public void setExplain1(String explain1) {
-        this.explain1 = explain1;
+    public void setDescript(String descript) {
+        this.descript = descript;
     }
 
-    public String getExplain2() {
-        return explain2;
+    public String getDevname() {
+        return devname;
     }
 
-    public void setExplain2(String explain2) {
-        this.explain2 = explain2;
+    public void setDevname(String devname) {
+        this.devname = devname;
     }
 
-    public String getExplain3() {
-        return explain3;
+    public Double getLowvalue() {
+        return lowvalue;
     }
 
-    public void setExplain3(String explain3) {
-        this.explain3 = explain3;
+    public void setLowvalue(Double lowvalue) {
+        this.lowvalue = lowvalue;
     }
 
-    public Integer getAmode() {
-        return amode;
+    public Double getHighvalue() {
+        return highvalue;
     }
 
-    public void setAmode(Integer amode) {
-        this.amode = amode;
-    }
-
-    public Integer getAok() {
-        return aok;
-    }
-
-    public void setAok(Integer aok) {
-        this.aok = aok;
-    }
-
-    @Override
-    public String toString() {
-        return "CwAralmEntity{" +
-                "id='" + id + '\'' +
-                ", intime=" + intime +
-                ", flag=" + flag +
-                ", customerid=" + customerid +
-                ", aobj='" + aobj + '\'' +
-                ", atext='" + atext + '\'' +
-                ", explain1='" + explain1 + '\'' +
-                ", explain2='" + explain2 + '\'' +
-                ", explain3='" + explain3 + '\'' +
-                ", amode=" + amode +
-                ", aok=" + aok +
-                '}';
+    public void setHighvalue(Double highvalue) {
+        this.highvalue = highvalue;
     }
 }

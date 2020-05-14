@@ -40,6 +40,13 @@ public class ChxCurExecution {
         this.chxCurList=chxCurEntityList;
     }
 
+    public ChxCurExecution(ChxCurStateEnum chxCurStateEnum, List<ChxChannelCurEntity> chxCurEntityList, Integer count) {
+        this.state = chxCurStateEnum.getState();
+        this.stateInfo = chxCurStateEnum.getStateInfo();
+        this.chxCurList=chxCurEntityList;
+        this.count=count;
+    }
+
     public int getState() {
         return state;
     }

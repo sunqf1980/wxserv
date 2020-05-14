@@ -12,7 +12,25 @@ public class TbSysResourceEntity {
     private String image_path;
     private String resource_path;
     private String task_file;
-    private String file;
+    private String file;;
+    private String info;
+    private String info_desc;
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getInfo_desc() {
+        return info_desc;
+    }
+
+    public void setInfo_desc(String info_desc) {
+        this.info_desc = info_desc;
+    }
 
     public String getSys_name() {
         return sys_name;

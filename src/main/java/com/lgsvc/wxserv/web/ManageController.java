@@ -2,6 +2,7 @@ package com.lgsvc.wxserv.web;
 
 import com.lgsvc.wxserv.dto.ManageRecourcceExecution;
 import com.lgsvc.wxserv.dto.ManageSysLogExecution;
+import com.lgsvc.wxserv.dto.MangerAralmExcution;
 import com.lgsvc.wxserv.dto.TbWangInfoExecution;
 import com.lgsvc.wxserv.service.ManageInfoService;
 import com.lgsvc.wxserv.util.HttpServletRequestUtil;
@@ -98,8 +99,33 @@ public class ManageController {
         return modelMap;
     }
 
+    /**
+     * 报警警告信息-前端接口 warn_info_log
+     */
 
+    @RequestMapping(value = "/warn_info_log", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object>  frontWarnInfoTran(HttpServletRequest request) {
+        Map<String, Object> modelMap = new HashMap<String, Object>();
 
+        Integer customId = HttpServletRequestUtil.getInt(request, "customer_id");
+        Integer pageIndex = HttpServletRequestUtil.getInt(request, "page_index");
+        Integer pageSize = HttpServletRequestUtil.getInt(request, "page_size");
+
+        try {
+            // 获取区域列表信息
+            MangerAralmExcution se = manageInfoService.manageAralmList(customId,pageIndex,pageSize);
+            modelMap.put("success", true);
+            modelMap.put("errMsg", se.getStateInfo());
+            modelMap.put("count", se.getCount());
+            modelMap.put("warn_info_group", se.getAralmList());
+            return modelMap;
+        } catch (Exception e) {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", e.getMessage());
+        }
+        return modelMap;
+    }
 
 
 }

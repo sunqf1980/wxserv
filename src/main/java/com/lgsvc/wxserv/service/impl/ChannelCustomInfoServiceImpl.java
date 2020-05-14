@@ -26,14 +26,31 @@ public class ChannelCustomInfoServiceImpl implements ChannelCustomInfoService {
     @Override
     public ChannelCustomExecution getChannelCustomList(Integer customId) {
         ChannelCustomExecution se = new ChannelCustomExecution();
+
+        System.out.print("开始 "+ customId );
         //客户的Id怎么会为负数呢？主要检查integer的判断
-        if (customId.intValue() <= 0 )  {
+        if (customId <= 0 )  {
             se.setState(ChannelCustomStateEnum.NULL_CUSTOMID.getState());
             se.setStateInfo(ChannelCustomStateEnum.NULL_CUSTOMID.getStateInfo());
-            throw new RuntimeException();
+            return se;
         }
+
+        Integer count = channelCustomInfoDao.queryChannelCustomInfoCountByCustomId(customId);
+        System.out.print("找到数据为"+count);
+        if( count < 0){
+            se.setState(ChannelCustomStateEnum.INNER_ERROR.getState());
+            se.setStateInfo(ChannelCustomStateEnum.INNER_ERROR.getStateInfo());
+            LOG.error("数据内部错误"+ customId);
+            return se;
+        }
+
+        if(count == 0){
+            se.setState(ChannelCustomStateEnum.NULL_CHANNEL.getState());
+            se.setStateInfo(ChannelCustomStateEnum.NULL_CHANNEL.getStateInfo());
+            return se;
+        }
+
         List<ChannelCustomInfoEntity> channelCustomList = channelCustomInfoDao.queryChannelCustomInfo(customId);
-        int count = channelCustomInfoDao.queryChannelCustomInfoCountByCustomId(customId);
         if (channelCustomList != null) {
             se.setChannelCustomInfoList(channelCustomList);
             se.setCount(count);

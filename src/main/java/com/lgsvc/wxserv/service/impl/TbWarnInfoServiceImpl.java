@@ -10,12 +10,7 @@ import java.util.Date;
 
 @Service
 public class TbWarnInfoServiceImpl implements TbWarnInfoService {
-    private final static Logger LOG = LoggerFactory.getLogger(ChxCurServiceImpl.class);
+    private final static Logger LOG = LoggerFactory.getLogger(TbWarnInfoServiceImpl.class);
 
-    @Override
-    public void autoTaekSacnTbTempCurr() {
-        Date curDate = new Date();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-        System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
-    }
+
 }
