@@ -79,4 +79,6 @@ public class ChannelCustomExecution {
     public ChannelCustomInfoEntity getChannelCustomInfo() {
         return ChannelCustomInfo;
     }
+
+
 }

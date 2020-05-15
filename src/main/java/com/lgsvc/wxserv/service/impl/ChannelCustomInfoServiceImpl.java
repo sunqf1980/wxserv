@@ -27,24 +27,24 @@ public class ChannelCustomInfoServiceImpl implements ChannelCustomInfoService {
     public ChannelCustomExecution getChannelCustomList(Integer customId) {
         ChannelCustomExecution se = new ChannelCustomExecution();
 
-        System.out.print("开始 "+ customId );
+        System.out.print("开始 " + customId);
         //客户的Id怎么会为负数呢？主要检查integer的判断
-        if (customId <= 0 )  {
+        if (customId <= 0) {
             se.setState(ChannelCustomStateEnum.NULL_CUSTOMID.getState());
             se.setStateInfo(ChannelCustomStateEnum.NULL_CUSTOMID.getStateInfo());
             return se;
         }
 
         Integer count = channelCustomInfoDao.queryChannelCustomInfoCountByCustomId(customId);
-        System.out.print("找到数据为"+count);
-        if( count < 0){
+        System.out.print("找到数据为" + count);
+        if (count < 0) {
             se.setState(ChannelCustomStateEnum.INNER_ERROR.getState());
             se.setStateInfo(ChannelCustomStateEnum.INNER_ERROR.getStateInfo());
-            LOG.error("数据内部错误"+ customId);
+            LOG.error("数据内部错误" + customId);
             return se;
         }
 
-        if(count == 0){
+        if (count == 0) {
             se.setState(ChannelCustomStateEnum.NULL_CHANNEL.getState());
             se.setStateInfo(ChannelCustomStateEnum.NULL_CHANNEL.getStateInfo());
             return se;
@@ -61,5 +61,41 @@ public class ChannelCustomInfoServiceImpl implements ChannelCustomInfoService {
             se.setStateInfo(ChannelCustomStateEnum.INNER_ERROR.getStateInfo());
         }
         return se;
+    }
+
+    @Override
+    public ChannelCustomExecution getChannelCustomInfo(Integer customerId, String channelId) {
+        ChannelCustomExecution se = new ChannelCustomExecution();
+
+        System.out.print("开始 " + customerId);
+        //客户的Id怎么会为负数呢？主要检查integer的判断
+        if (customerId <= 0) {
+            se.setState(ChannelCustomStateEnum.NULL_CUSTOMID.getState());
+            se.setStateInfo(ChannelCustomStateEnum.NULL_CUSTOMID.getStateInfo());
+            return se;
+        }
+        int count = channelCustomInfoDao.queryCustomAndChannelEntityCount(customerId, channelId);
+        if(count <0 ){
+            se.setState(ChannelCustomStateEnum.INNER_ERROR.getState());
+            se.setStateInfo(ChannelCustomStateEnum.INNER_ERROR.getStateInfo());
+            return se;
+        }
+        if(count == 0 ){
+            se.setState(ChannelCustomStateEnum.NULL_CHANNEL.getState());
+            se.setStateInfo(ChannelCustomStateEnum.NULL_CHANNEL.getStateInfo());
+            return se;
+        }
+        ChannelCustomInfoEntity channelCustomEntity = channelCustomInfoDao.queryCustomAndChannelEntity(customerId, channelId);
+        if (channelCustomEntity != null) {
+            se.setChannelCustomInfo(channelCustomEntity);
+            se.setCount(count);
+            se.setState(ChannelCustomStateEnum.SUCCESS.getState());
+            se.setStateInfo(ChannelCustomStateEnum.SUCCESS.getStateInfo());
+        } else {
+            se.setState(ChannelCustomStateEnum.INNER_ERROR.getState());
+            se.setStateInfo(ChannelCustomStateEnum.INNER_ERROR.getStateInfo());
+        }
+        return se;
+
     }
 }

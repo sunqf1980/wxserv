@@ -35,9 +35,9 @@ public class channelMangerController {
     private final static Logger LOG = LoggerFactory.getLogger(channelMangerController.class);
 
 
-    @RequestMapping(value = "/cur_customer_info", method = RequestMethod.POST)
+    @RequestMapping(value = "/cur_customer_list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> channelCustomInfo(HttpServletRequest request) {
+    public Map<String, Object> channelCustomLest(HttpServletRequest request) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         Integer customId = HttpServletRequestUtil.getInt(request, "customer_id");
         System.out.print("&&&&&&&&----"+ customId);
@@ -50,6 +50,34 @@ public class channelMangerController {
                 return modelMap;
             }
             modelMap.put("channel_custom", se.getChannelCustomInfoList());
+            modelMap.put("count", se.getCount());
+            modelMap.put("success", true);
+            modelMap.put("errMsg", se.getStateInfo());
+            return modelMap;
+        } catch (Exception e) {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", e.getMessage());
+            return modelMap;
+        }
+    }
+
+    @RequestMapping(value = "/cur_customer_info", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> channelCustomInfo(HttpServletRequest request) {
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        Integer customerId = HttpServletRequestUtil.getInt(request, "customer_id");
+        String channelId = HttpServletRequestUtil.getString(request,"channel_id");
+
+        System.out.print("&&&&&&&&----"+ customerId);
+        try {
+            // 获取区域列表信息
+            ChannelCustomExecution se = channelCustomInfoService.getChannelCustomInfo(customerId,channelId);
+            if(se.getState() != ChannelCustomStateEnum.SUCCESS.getState()) {
+                modelMap.put("success", false);
+                modelMap.put("errMsg", se.getStateInfo());
+                return modelMap;
+            }
+            modelMap.put("channel_custom", se.getChannelCustomInfo());
             modelMap.put("count", se.getCount());
             modelMap.put("success", true);
             modelMap.put("errMsg", se.getStateInfo());

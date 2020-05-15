@@ -45,9 +45,6 @@ public class ChxCurServiceImpl implements ChxCurService {
             se.setState(ChxCurStateEnum.NULL_HAX.getState());
             se.setStateInfo(ChxCurStateEnum.NULL_HAX.getStateInfo());
             return se;
-
-
-
         }
 
         int count = chxDao.queryChxChannelCurCount(customId,chx);

@@ -2,42 +2,72 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lgsvc.wxserv.dao.ChannelCustomInfoDao">
-    <select id="queryChannelCustomInfo" parameterType="Integer" resultType="com.lgsvc.wxserv.entity.ChannelCustomInfoEntity">
-        SELECT T1.id ,
-        T1.sortstr,
-        T1.sortint,
-        T1.descript,
-        T1.devname,
-        T1.devaddr,
-        T1.sortid,
-        T1.gatherway,
-        T1.comnum,
-        T1.sv,
-        T1.lowvalue,
-        T1.highvalue,
-        T1.l2,
-        T1.h2,
-        T1.use2,
-        T1.xa,
-        T1.xb,
-        T1.state,
-        T1.agroup,
-        T2.id,
-        T2.chx,
-        T2.val,
-        T2.state as state_cur
-        FROM cw_channel T1 LEFT JOIN
-        (SELECT * FROM cw_tempcurr WHERE customerid=#{customerid}  ORDER BY intime  DESC LIMIT 0,1 ) as T2
-        on T1.customerid=T2.customerid
-        WHERE t1.customerid=#{customerid}
+    <resultMap id="channelCurRestMap" type="com.lgsvc.wxserv.entity.ChannelCustomInfoEntity">
+        <result column="maxDate" property="maxDate"/>
+        <result column="sortstr" property="sortstr"/>
+        <result column="descript" property="descript"/>
+        <result column="devname" property="devname"/>
+        <result column="sv" property="sv"/>
+        <result column="lowvalue" property="lowvalue"/>
+        <result column="highvalue" property="highvalue"/>
+        <result column="val" property="val"/>
+        <result column="state_cur" property="state_cur"/>
+        <result column="formatData" property="formatData"/>
+    </resultMap>
+    <select id="queryChannelCustomInfo" parameterType="Integer" resultMap="channelCurRestMap">
+        SELECT MAX(b.intime) as maxDate,
+               a.sortstr,
+               a.descript,
+               a.devname,
+               a.devaddr,
+               a.sv,
+               a.lowvalue,
+               a.highvalue,
+               b.val,
+               b.state AS state_cur ,
+               DATE_FORMAT(b.intime,'%Y年%m月%d日  %H时-%i分-%s秒') AS formatData
+        FROM cw_channel a, cw_tempcurr b
+        WHERE a.customerid=b.customerid
+        AND a.sortstr = b.chx
+        AND a.customerid=#{customerid}
+        GROUP BY b.chx
+        ORDER BY FIELD(`state_cur`, 4, 3, 2, 1, 0)
     </select>
 
     <select id="queryChannelCustomInfoCountByCustomId" parameterType="Integer" resultType="Integer">
         SELECT COUNT(*)
         FROM cw_channel T1 LEFT JOIN
-        (SELECT * FROM cw_tempcurr WHERE customerid=#{customerid}  ORDER BY intime  DESC LIMIT 0,1 ) as T2
-        on T1.customerid=T2.customerid
-        WHERE t1.customerid=#{customerid}
+        (SELECT customerid, intime, chx, MAX(intime) FROM cw_tempcurr WHERE customerid=#{customerid} GROUP BY chx)
+        AS T2 ON T1.customerid=T2.customerid WHERE t1.customerid=#{customerid}
+        AND T1.sortstr = T2.chx
+    </select>
+
+    <select id="queryCustomAndChannelEntity"  resultType="com.lgsvc.wxserv.entity.ChannelCustomInfoEntity">
+        SELECT MAX(b.intime) as maxDate,
+        a.sortstr,
+        a.descript,
+        a.devname,
+        a.devaddr,
+        a.sv,
+        a.lowvalue,
+        a.highvalue,
+        b.val,
+        b.state,
+        DATE_FORMAT(b.intime,'%Y年%m月%d日  %H时-%i分-%s秒') AS formatData
+        FROM cw_channel a, cw_tempcurr b
+        WHERE a.customerid=b.customerid
+        AND a.sortstr = b.chx
+        AND a.customerid=#{customerid}
+        AND b.chx=#{channelid}
+        GROUP BY b.chx
+    </select>
+
+    <select id="queryCustomAndChannelEntityCount"  resultType="Integer">
+        SELECT COUNT(*)
+        FROM cw_channel T1 LEFT JOIN (SELECT customerid, intime, chx, MAX(intime) FROM cw_tempcurr WHERE customerid=#{customerid} GROUP BY chx)
+        AS T2 ON T1.customerid=T2.customerid WHERE t1.customerid=1
+        AND T1.sortstr = T2.chx
+        AND T1.sortstr=#{channelid}
     </select>
 
 </mapper>

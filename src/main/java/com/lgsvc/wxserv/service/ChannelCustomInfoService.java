@@ -16,5 +16,5 @@ public interface ChannelCustomInfoService {
 
    public ChannelCustomExecution getChannelCustomList(Integer customId);
 
-
+    public ChannelCustomExecution getChannelCustomInfo(Integer customId, String channelId);
 }

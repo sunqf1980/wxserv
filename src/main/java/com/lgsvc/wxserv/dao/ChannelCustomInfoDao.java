@@ -2,6 +2,7 @@ package com.lgsvc.wxserv.dao;
 
 
 import com.lgsvc.wxserv.entity.ChannelCustomInfoEntity;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -34,5 +35,33 @@ public interface ChannelCustomInfoDao {
      * @function ChannelCustomInfoDao
      */
     public Integer queryChannelCustomInfoCountByCustomId(Integer customerId);
+
+
+    /**
+     * Channel端管理接口
+     * 主要以channel表为主进行数据查询
+     *
+     * @param awardCondition
+     * @param rowIndex
+     * @param pageSize
+     * @return
+     * @function ChannelCustomInfoDao
+     */
+    public ChannelCustomInfoEntity queryCustomAndChannelEntity(@Param("customerid")  Integer customerId,
+                                                                     @Param("channelid") String channelId);
+
+    /**
+     * Channel端管理接口
+     * 主要以channel表为主进行数据查询
+     *
+     * @param awardCondition
+     * @param rowIndex
+     * @param pageSize
+     * @return
+     * @function ChannelCustomInfoDao
+     */
+    public Integer queryCustomAndChannelEntityCount(@Param("customerid")  Integer customerId,
+                                                    @Param("channelid") String channelId);
+
 
 }

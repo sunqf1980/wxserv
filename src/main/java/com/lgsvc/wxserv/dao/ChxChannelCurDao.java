@@ -28,6 +28,6 @@ public interface ChxChannelCurDao {
                                                             @Param("rowIndex") Integer rowIndex,
                                                             @Param("pageSize") int pageSize);
 
-    public Integer queryChxChannelCurCount(@Param("customerId")  Integer customerId,
-                                           @Param("chx") String chx);
+    public Integer  queryChxChannelCurCount(@Param("customerId")  Integer customerId,
+                                                       @Param("chx") String chx);
 }
