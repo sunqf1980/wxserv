@@ -20,22 +20,22 @@ public class ChannelHisServiceImpl implements ChannelHisService {
     private final static Logger LOG = LoggerFactory.getLogger(ChannelHisServiceImpl.class);
 
     @Override
-    public ChannelHisExecution getChannelHisList(Integer customId , String channel_id, Integer page_index, Integer page_size) {
+    public ChannelHisExecution getChannelHisList(Integer customId, String channel_id, String fristDate, String lastDate, Integer page_index, Integer page_size) {
         ChannelHisExecution se = new ChannelHisExecution();
         //客户的Id怎么会为负数呢？主要检查integer的判断
-        if (customId.intValue() <= 0 )  {
+        if (customId.intValue() <= 0) {
             se.setState(ChannelHisEnum.NULL_CUSTOMID.getState());
             se.setStateInfo(ChannelHisEnum.NULL_CUSTOMID.getStateInfo());
             throw new RuntimeException();
         }
 
-        int count = cwTempTempDao.queryChannelTempTempListcount(customId);
-        if(count < 0){
+        int count = cwTempTempDao.queryChannelTempTempListcount(customId, fristDate,lastDate );
+        if (count < 0) {
             se.setState(ChannelHisEnum.INNER_ERROR.getState());
             se.setStateInfo(ChannelHisEnum.INNER_ERROR.getStateInfo());
             throw new RuntimeException();
         }
-        List<CwTempTempEntity> chxHisList = cwTempTempDao.queryChannelTempTempList(customId, channel_id, page_index,page_size);
+        List<CwTempTempEntity> chxHisList = cwTempTempDao.queryChannelTempTempList(customId, channel_id, fristDate, lastDate,  page_index, page_size);
         if (chxHisList != null) {
             se.setChxHisList(chxHisList);
             se.setCount(count);

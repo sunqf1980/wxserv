@@ -11,19 +11,24 @@
         <result column="lowvalue" property="lowvalue"/>
         <result column="highvalue" property="highvalue"/>
         <result column="format_data" property="format_data"/>
+        <result column="sortstr" property="sortstr"/>
+        <result column="descript" property="descript"/>
     </resultMap>
     <select id="queryChannelTempTempList" resultMap="channelHistList" statementType="STATEMENT">
-
         SELECT  T1.customerid as customer_id, T1.intime , T1.intime, lower(T1.${chx}) as val ,T2.sv ,
-                T2.lowvalue, T2.highvalue, DATE_FORMAT(T1.intime,'%Y%m%d:%H%i%s') as format_data
+                T2.lowvalue, T2.highvalue, DATE_FORMAT(T1.intime,'%Y%m%d:%H%i%s') as format_data,
+                T2.sortstr, T2.descript
         FROM cw_temptemp T1 , cw_channel T2
         WHERE
         T1.customerid=${customer_Id}
         and T1.customerid=t2.customerid
         and T2.sortstr='${chx}'
         and T1.intime !=0
+        and DATE_FORMAT(T1.intime,'%Y%m%d') >=  '${fristDate}'
+        <![CDATA[ and DATE_FORMAT(T1.intime,'%Y%m%d') <= '${lastDate}'
         ORDER BY T1.intime DESC
-        LIMIT ${rowIndex},${pageSize};
+        LIMIT ${rowIndex},${pageSize};]]>
+
     </select>
 
     <select id="queryChannelTempTempListcount" resultType="Integer">
@@ -31,6 +36,8 @@
         FROM cw_temptemp T1
         WHERE
         T1.customerid=#{customer_Id}
-        and T1.intime !=0
+        and DATE_FORMAT(T1.intime,'%Y%m%d') >=  '${fristDate}'
+        <![CDATA[ and DATE_FORMAT(T1.intime,'%Y%m%d') <= '${lastDate}'
+        and T1.intime !=0;]]>
     </select>
 </mapper>

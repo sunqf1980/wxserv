@@ -39,7 +39,6 @@
         DELETE FROM
         tb_area
         WHERE
-        area_id =
-        #{areaId}
+        area_id = #{areaId}
     </delete>
 </mapper>

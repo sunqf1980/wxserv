@@ -40,11 +40,10 @@ public class channelMangerController {
     public Map<String, Object> channelCustomLest(HttpServletRequest request) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         Integer customId = HttpServletRequestUtil.getInt(request, "customer_id");
-        System.out.print("&&&&&&&&----"+ customId);
         try {
             // 获取区域列表信息
             ChannelCustomExecution se = channelCustomInfoService.getChannelCustomList(customId);
-            if(se.getState() != ChannelCustomStateEnum.SUCCESS.getState()) {
+            if (se.getState() != ChannelCustomStateEnum.SUCCESS.getState()) {
                 modelMap.put("success", false);
                 modelMap.put("errMsg", se.getStateInfo());
                 return modelMap;
@@ -56,7 +55,8 @@ public class channelMangerController {
             return modelMap;
         } catch (Exception e) {
             modelMap.put("success", false);
-            modelMap.put("errMsg", e.getMessage());
+            LOG.error(e.getMessage());
+            modelMap.put("errMsg", "内部错误，请联系系统管理员[database is err]");
             return modelMap;
         }
     }
@@ -66,13 +66,13 @@ public class channelMangerController {
     public Map<String, Object> channelCustomInfo(HttpServletRequest request) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         Integer customerId = HttpServletRequestUtil.getInt(request, "customer_id");
-        String channelId = HttpServletRequestUtil.getString(request,"channel_id");
+        String channelId = HttpServletRequestUtil.getString(request, "channel_id");
 
-        System.out.print("&&&&&&&&----"+ customerId);
+        System.out.print("&&&&&&&&----" + customerId);
         try {
             // 获取区域列表信息
-            ChannelCustomExecution se = channelCustomInfoService.getChannelCustomInfo(customerId,channelId);
-            if(se.getState() != ChannelCustomStateEnum.SUCCESS.getState()) {
+            ChannelCustomExecution se = channelCustomInfoService.getChannelCustomInfo(customerId, channelId);
+            if (se.getState() != ChannelCustomStateEnum.SUCCESS.getState()) {
                 modelMap.put("success", false);
                 modelMap.put("errMsg", se.getStateInfo());
                 return modelMap;
@@ -84,7 +84,8 @@ public class channelMangerController {
             return modelMap;
         } catch (Exception e) {
             modelMap.put("success", false);
-            modelMap.put("errMsg", e.getMessage());
+            LOG.error(e.getMessage());
+            modelMap.put("errMsg", "内部错误，请联系系统管理员[database is err]");
             return modelMap;
         }
     }
@@ -115,7 +116,8 @@ public class channelMangerController {
             return modelMap;
         } catch (Exception e) {
             modelMap.put("success", false);
-            modelMap.put("errMsg", e.getMessage());
+            LOG.error(e.getMessage());
+            modelMap.put("errMsg", "内部错误，请联系系统管理员[database is err]");
         }
         return modelMap;
     }
@@ -134,12 +136,14 @@ public class channelMangerController {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         Integer customId = HttpServletRequestUtil.getInt(request, "customer_id");
         String channelId = HttpServletRequestUtil.getString(request, "channel_id");
+        String fristDate = HttpServletRequestUtil.getString(request, "frist_date");
+        String lastDate = HttpServletRequestUtil.getString(request, "last_date");
         Integer pageIndex = HttpServletRequestUtil.getInt(request, "page_index");
         Integer pageSize = HttpServletRequestUtil.getInt(request, "page_size");
 
         try {
             // 获取区域列表信息
-            ChannelHisExecution se = channelHisService.getChannelHisList(customId, channelId, pageIndex, pageSize);
+            ChannelHisExecution se = channelHisService.getChannelHisList(customId, channelId, fristDate, lastDate, pageIndex, pageSize);
             modelMap.put("his_chx_channel", se.getChxHisList());
             modelMap.put("count", se.getCount());
             modelMap.put("success", true);
@@ -147,7 +151,8 @@ public class channelMangerController {
             return modelMap;
         } catch (Exception e) {
             modelMap.put("success", false);
-            modelMap.put("errMsg", e.getMessage());
+            LOG.error(e.getMessage());
+            modelMap.put("errMsg", "内部错误，请联系系统管理员[database is err]");
         }
         return modelMap;
     }

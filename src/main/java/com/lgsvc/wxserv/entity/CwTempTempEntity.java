@@ -11,6 +11,9 @@ public class CwTempTempEntity {
     private Double lowvalue;
     private Double highvalue;
     private String format_data;
+    private String descript;
+    private String sortstr;
+
 
     public Integer getCustomer_id() {
         return customer_id;
@@ -76,13 +79,19 @@ public class CwTempTempEntity {
         this.format_data = format_data;
     }
 
-    @Override
-    public String toString() {
-        return "CwTempTempEntity{" +
-                "customer_id=" + customer_id +
-                ", inTime=" + inTime +
-                ", flag='" + flag + '\'' +
-                ", val=" + val +
-                '}';
+    public String getDescript() {
+        return descript;
+    }
+
+    public void setDescript(String descript) {
+        this.descript = descript;
+    }
+
+    public String getSortstr() {
+        return sortstr;
+    }
+
+    public void setSortstr(String sortstr) {
+        this.sortstr = sortstr;
     }
 }

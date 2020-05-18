@@ -23,7 +23,7 @@ class CwTempTempDaoTest {
 
     @Test
     void testQueryChannelHis() {
-        List<CwTempTempEntity> chxList= cwTempTempDao.queryChannelTempTempList(12345,"ch1", 0,100);
+        List<CwTempTempEntity> chxList= cwTempTempDao.queryChannelTempTempList(12345,"ch1","2020-05-08","2020-05-08", 0,100);
         System.out.print(chxList.toString());
     }
 

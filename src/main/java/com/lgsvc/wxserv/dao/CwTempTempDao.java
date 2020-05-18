@@ -8,9 +8,13 @@ import java.util.List;
 public interface CwTempTempDao {
     public List<CwTempTempEntity> queryChannelTempTempList(@Param("customer_Id") Integer customer_Id,
                                                            @Param("chx") String chx,
+                                                           @Param("fristDate") String fristDate,
+                                                           @Param("lastDate") String lastDate,
                                                            @Param("rowIndex") Integer rowIndex,
-                                                           @Param("pageSize") int pageSize);
+                                                           @Param("pageSize") Integer pageSize);
 
-    public Integer queryChannelTempTempListcount(@Param("customer_Id") Integer customer_Id);
+    public Integer queryChannelTempTempListcount(@Param("customer_Id") Integer customer_Id,
+                                                 @Param("fristDate") String fristDate,
+                                                 @Param("lastDate") String lastDate);
 }
 
