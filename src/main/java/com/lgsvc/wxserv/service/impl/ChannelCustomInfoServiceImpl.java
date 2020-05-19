@@ -26,8 +26,7 @@ public class ChannelCustomInfoServiceImpl implements ChannelCustomInfoService {
     @Override
     public ChannelCustomExecution getChannelCustomList(Integer customId) {
         ChannelCustomExecution se = new ChannelCustomExecution();
-
-        System.out.print("开始 " + customId);
+        
         //客户的Id怎么会为负数呢？主要检查integer的判断
         if (customId <= 0) {
             se.setState(ChannelCustomStateEnum.NULL_CUSTOMID.getState());
@@ -36,7 +35,6 @@ public class ChannelCustomInfoServiceImpl implements ChannelCustomInfoService {
         }
 
         Integer count = channelCustomInfoDao.queryChannelCustomInfoCountByCustomId(customId);
-        System.out.print("找到数据为" + count);
         if (count < 0) {
             se.setState(ChannelCustomStateEnum.INNER_ERROR.getState());
             se.setStateInfo(ChannelCustomStateEnum.INNER_ERROR.getStateInfo());
